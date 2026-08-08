@@ -16,11 +16,14 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as DailyPracticeRouteImport } from './routes/daily-practice'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PyqsRouteImport } from './routes/pyqs'
 import { Route as QuestionBankRouteImport } from './routes/question-bank'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StudyMaterialsRouteImport } from './routes/study-materials'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 
@@ -59,9 +62,19 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MockTestsRoute = MockTestsRouteImport.update({
@@ -84,6 +97,11 @@ const QuestionBankRoute = QuestionBankRouteImport.update({
   path: '/question-bank',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudyMaterialsRoute = StudyMaterialsRouteImport.update({
   id: '/study-materials',
   path: '/study-materials',
@@ -103,11 +121,14 @@ export interface FileRoutesByFullPath {
   '/courses': typeof CoursesRoute
   '/daily-practice': typeof DailyPracticeRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/pricing': typeof PricingRoute
   '/pyqs': typeof PyqsRoute
   '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
   '/study-materials': typeof StudyMaterialsRoute
   '/course/$slug': typeof CourseSlugRoute
 }
@@ -119,11 +140,14 @@ export interface FileRoutesByTo {
   '/courses': typeof CoursesRoute
   '/daily-practice': typeof DailyPracticeRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/pricing': typeof PricingRoute
   '/pyqs': typeof PyqsRoute
   '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
   '/study-materials': typeof StudyMaterialsRoute
   '/course/$slug': typeof CourseSlugRoute
 }
@@ -136,11 +160,14 @@ export interface FileRoutesById {
   '/courses': typeof CoursesRoute
   '/daily-practice': typeof DailyPracticeRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
   '/mock-tests': typeof MockTestsRoute
   '/pricing': typeof PricingRoute
   '/pyqs': typeof PyqsRoute
   '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
   '/study-materials': typeof StudyMaterialsRoute
   '/course/$slug': typeof CourseSlugRoute
 }
@@ -154,11 +181,14 @@ export interface FileRouteTypes {
     | '/courses'
     | '/daily-practice'
     | '/faq'
+    | '/forgot-password'
     | '/leaderboard'
+    | '/login'
     | '/mock-tests'
     | '/pricing'
     | '/pyqs'
     | '/question-bank'
+    | '/register'
     | '/study-materials'
     | '/course/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -170,11 +200,14 @@ export interface FileRouteTypes {
     | '/courses'
     | '/daily-practice'
     | '/faq'
+    | '/forgot-password'
     | '/leaderboard'
+    | '/login'
     | '/mock-tests'
     | '/pricing'
     | '/pyqs'
     | '/question-bank'
+    | '/register'
     | '/study-materials'
     | '/course/$slug'
   id:
@@ -186,11 +219,14 @@ export interface FileRouteTypes {
     | '/courses'
     | '/daily-practice'
     | '/faq'
+    | '/forgot-password'
     | '/leaderboard'
+    | '/login'
     | '/mock-tests'
     | '/pricing'
     | '/pyqs'
     | '/question-bank'
+    | '/register'
     | '/study-materials'
     | '/course/$slug'
   fileRoutesById: FileRoutesById
@@ -203,11 +239,14 @@ export interface RootRouteChildren {
   CoursesRoute: typeof CoursesRoute
   DailyPracticeRoute: typeof DailyPracticeRoute
   FaqRoute: typeof FaqRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  LoginRoute: typeof LoginRoute
   MockTestsRoute: typeof MockTestsRoute
   PricingRoute: typeof PricingRoute
   PyqsRoute: typeof PyqsRoute
   QuestionBankRoute: typeof QuestionBankRoute
+  RegisterRoute: typeof RegisterRoute
   StudyMaterialsRoute: typeof StudyMaterialsRoute
   CourseSlugRoute: typeof CourseSlugRoute
 }
@@ -263,11 +302,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/leaderboard': {
       id: '/leaderboard'
       path: '/leaderboard'
       fullPath: '/leaderboard'
       preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mock-tests': {
@@ -298,6 +351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionBankRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/study-materials': {
       id: '/study-materials'
       path: '/study-materials'
@@ -323,14 +383,27 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesRoute: CoursesRoute,
   DailyPracticeRoute: DailyPracticeRoute,
   FaqRoute: FaqRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LeaderboardRoute: LeaderboardRoute,
+  LoginRoute: LoginRoute,
   MockTestsRoute: MockTestsRoute,
   PricingRoute: PricingRoute,
   PyqsRoute: PyqsRoute,
   QuestionBankRoute: QuestionBankRoute,
+  RegisterRoute: RegisterRoute,
   StudyMaterialsRoute: StudyMaterialsRoute,
   CourseSlugRoute: CourseSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
