@@ -131,11 +131,11 @@ export const Route = createFileRoute("/")({
         content:
           "Practise 50,000+ questions, 500+ mock tests and previous year papers for JEE, NEET, BITSAT, EAMCET and EAPCET with detailed performance analytics.",
       },
-      { property: "og:title", content: "ExamPathway — Your Complete Entrance Exam Preparation Platform" },
+      { property: "og:title", content: "ExamPathway — Entrance Exam Preparation for JEE, NEET & More" },
       {
         property: "og:description",
         content:
-          "Question banks, mock tests, PYQs, daily practice and analytics for JEE, NEET, BITSAT, EAMCET and EAPCET aspirants.",
+          "Practise 50,000+ questions, 500+ mock tests and previous year papers for JEE, NEET, BITSAT, EAMCET and EAPCET with detailed performance analytics.",
       },
     ],
   }),

@@ -81,21 +81,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ExamPathway — Entrance Exam Preparation Platform" },
+      { title: "ExamPathway — Entrance Exam Preparation for JEE, NEET & More" },
       {
         name: "description",
         content:
-          "Question banks, mock tests, PYQs and analytics for JEE, NEET, BITSAT, EAMCET and EAPCET aspirants.",
+          "Practise 50,000+ questions, 500+ mock tests and previous year papers for JEE, NEET, BITSAT, EAMCET and EAPCET with detailed performance analytics.",
       },
       { name: "author", content: "ExamPathway" },
-      { property: "og:title", content: "ExamPathway — Entrance Exam Preparation Platform" },
+      { property: "og:title", content: "ExamPathway — Entrance Exam Preparation for JEE, NEET & More" },
       {
         property: "og:description",
         content:
-          "Question banks, mock tests, PYQs and analytics for JEE, NEET, BITSAT, EAMCET and EAPCET aspirants.",
+          "Practise 50,000+ questions, 500+ mock tests and previous year papers for JEE, NEET, BITSAT, EAMCET and EAPCET with detailed performance analytics.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "ExamPathway — Entrance Exam Preparation for JEE, NEET & More" },
+      { name: "twitter:description", content: "Practise 50,000+ questions, 500+ mock tests and previous year papers for JEE, NEET, BITSAT, EAMCET and EAPCET with detailed performance analytics." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b792dd95f50cc1355838b8f869a52383/id-preview-b3fc395d--d1ced830-02a1-4566-b4cc-7df236b459ab.lovable.app-1786168120962.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b792dd95f50cc1355838b8f869a52383/id-preview-b3fc395d--d1ced830-02a1-4566-b4cc-7df236b459ab.lovable.app-1786168120962.png" },
     ],
     links: [
       {
