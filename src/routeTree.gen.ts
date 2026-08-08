@@ -10,33 +10,206 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AnnouncementsRouteImport } from './routes/announcements'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as DailyPracticeRouteImport } from './routes/daily-practice'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as MockTestsRouteImport } from './routes/mock-tests'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PyqsRouteImport } from './routes/pyqs'
+import { Route as QuestionBankRouteImport } from './routes/question-bank'
+import { Route as StudyMaterialsRouteImport } from './routes/study-materials'
+import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsRoute = AnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DailyPracticeRoute = DailyPracticeRouteImport.update({
+  id: '/daily-practice',
+  path: '/daily-practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockTestsRoute = MockTestsRouteImport.update({
+  id: '/mock-tests',
+  path: '/mock-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PyqsRoute = PyqsRouteImport.update({
+  id: '/pyqs',
+  path: '/pyqs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionBankRoute = QuestionBankRouteImport.update({
+  id: '/question-bank',
+  path: '/question-bank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudyMaterialsRoute = StudyMaterialsRouteImport.update({
+  id: '/study-materials',
+  path: '/study-materials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CourseSlugRoute = CourseSlugRouteImport.update({
+  id: '/course/$slug',
+  path: '/course/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/faq': typeof FaqRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/faq': typeof FaqRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/faq': typeof FaqRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/faq'
+    | '/leaderboard'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/study-materials'
+    | '/course/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/faq'
+    | '/leaderboard'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/study-materials'
+    | '/course/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/faq'
+    | '/leaderboard'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/study-materials'
+    | '/course/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AnnouncementsRoute: typeof AnnouncementsRoute
+  ContactRoute: typeof ContactRoute
+  CoursesRoute: typeof CoursesRoute
+  DailyPracticeRoute: typeof DailyPracticeRoute
+  FaqRoute: typeof FaqRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  MockTestsRoute: typeof MockTestsRoute
+  PricingRoute: typeof PricingRoute
+  PyqsRoute: typeof PyqsRoute
+  QuestionBankRoute: typeof QuestionBankRoute
+  StudyMaterialsRoute: typeof StudyMaterialsRoute
+  CourseSlugRoute: typeof CourseSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +221,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/announcements': {
+      id: '/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/daily-practice': {
+      id: '/daily-practice'
+      path: '/daily-practice'
+      fullPath: '/daily-practice'
+      preLoaderRoute: typeof DailyPracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mock-tests': {
+      id: '/mock-tests'
+      path: '/mock-tests'
+      fullPath: '/mock-tests'
+      preLoaderRoute: typeof MockTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pyqs': {
+      id: '/pyqs'
+      path: '/pyqs'
+      fullPath: '/pyqs'
+      preLoaderRoute: typeof PyqsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question-bank': {
+      id: '/question-bank'
+      path: '/question-bank'
+      fullPath: '/question-bank'
+      preLoaderRoute: typeof QuestionBankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/study-materials': {
+      id: '/study-materials'
+      path: '/study-materials'
+      fullPath: '/study-materials'
+      preLoaderRoute: typeof StudyMaterialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course/$slug': {
+      id: '/course/$slug'
+      path: '/course/$slug'
+      fullPath: '/course/$slug'
+      preLoaderRoute: typeof CourseSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AnnouncementsRoute: AnnouncementsRoute,
+  ContactRoute: ContactRoute,
+  CoursesRoute: CoursesRoute,
+  DailyPracticeRoute: DailyPracticeRoute,
+  FaqRoute: FaqRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  MockTestsRoute: MockTestsRoute,
+  PricingRoute: PricingRoute,
+  PyqsRoute: PyqsRoute,
+  QuestionBankRoute: QuestionBankRoute,
+  StudyMaterialsRoute: StudyMaterialsRoute,
+  CourseSlugRoute: CourseSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
