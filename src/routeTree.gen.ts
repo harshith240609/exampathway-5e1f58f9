@@ -10,33 +10,387 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AnnouncementsRouteImport } from './routes/announcements'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as DailyPracticeRouteImport } from './routes/daily-practice'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MockTestsRouteImport } from './routes/mock-tests'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PyqsRouteImport } from './routes/pyqs'
+import { Route as QuestionBankRouteImport } from './routes/question-bank'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as StudyMaterialsRouteImport } from './routes/study-materials'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as CourseSlugRouteImport } from './routes/course.$slug'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAchievementsRouteImport } from './routes/dashboard.achievements'
+import { Route as DashboardBookmarksRouteImport } from './routes/dashboard.bookmarks'
+import { Route as DashboardCoursesRouteImport } from './routes/dashboard.courses'
+import { Route as DashboardMockTestsRouteImport } from './routes/dashboard.mock-tests'
+import { Route as DashboardPerformanceRouteImport } from './routes/dashboard.performance'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardQuestionBankRouteImport } from './routes/dashboard.question-bank'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsRoute = AnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DailyPracticeRoute = DailyPracticeRouteImport.update({
+  id: '/daily-practice',
+  path: '/daily-practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockTestsRoute = MockTestsRouteImport.update({
+  id: '/mock-tests',
+  path: '/mock-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PyqsRoute = PyqsRouteImport.update({
+  id: '/pyqs',
+  path: '/pyqs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionBankRoute = QuestionBankRouteImport.update({
+  id: '/question-bank',
+  path: '/question-bank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudyMaterialsRoute = StudyMaterialsRouteImport.update({
+  id: '/study-materials',
+  path: '/study-materials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const CourseSlugRoute = CourseSlugRouteImport.update({
+  id: '/course/$slug',
+  path: '/course/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAchievementsRoute = DashboardAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBookmarksRoute = DashboardBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCoursesRoute = DashboardCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMockTestsRoute = DashboardMockTestsRouteImport.update({
+  id: '/mock-tests',
+  path: '/mock-tests',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardPerformanceRoute = DashboardPerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardQuestionBankRoute = DashboardQuestionBankRouteImport.update({
+  id: '/question-bank',
+  path: '/question-bank',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
+  '/dashboard/achievements': typeof DashboardAchievementsRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/courses': typeof DashboardCoursesRoute
+  '/dashboard/mock-tests': typeof DashboardMockTestsRoute
+  '/dashboard/performance': typeof DashboardPerformanceRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/question-bank': typeof DashboardQuestionBankRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
+  '/dashboard/achievements': typeof DashboardAchievementsRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/courses': typeof DashboardCoursesRoute
+  '/dashboard/mock-tests': typeof DashboardMockTestsRoute
+  '/dashboard/performance': typeof DashboardPerformanceRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/question-bank': typeof DashboardQuestionBankRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/admin': typeof AdminIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/daily-practice': typeof DailyPracticeRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/mock-tests': typeof MockTestsRoute
+  '/pricing': typeof PricingRoute
+  '/pyqs': typeof PyqsRoute
+  '/question-bank': typeof QuestionBankRoute
+  '/register': typeof RegisterRoute
+  '/study-materials': typeof StudyMaterialsRoute
+  '/course/$slug': typeof CourseSlugRoute
+  '/dashboard/achievements': typeof DashboardAchievementsRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/courses': typeof DashboardCoursesRoute
+  '/dashboard/mock-tests': typeof DashboardMockTestsRoute
+  '/dashboard/performance': typeof DashboardPerformanceRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/question-bank': typeof DashboardQuestionBankRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/dashboard'
+    | '/faq'
+    | '/forgot-password'
+    | '/leaderboard'
+    | '/login'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/register'
+    | '/study-materials'
+    | '/course/$slug'
+    | '/dashboard/achievements'
+    | '/dashboard/bookmarks'
+    | '/dashboard/courses'
+    | '/dashboard/mock-tests'
+    | '/dashboard/performance'
+    | '/dashboard/profile'
+    | '/dashboard/question-bank'
+    | '/dashboard/settings'
+    | '/admin/'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/faq'
+    | '/forgot-password'
+    | '/leaderboard'
+    | '/login'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/register'
+    | '/study-materials'
+    | '/course/$slug'
+    | '/dashboard/achievements'
+    | '/dashboard/bookmarks'
+    | '/dashboard/courses'
+    | '/dashboard/mock-tests'
+    | '/dashboard/performance'
+    | '/dashboard/profile'
+    | '/dashboard/question-bank'
+    | '/dashboard/settings'
+    | '/admin'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/announcements'
+    | '/contact'
+    | '/courses'
+    | '/daily-practice'
+    | '/dashboard'
+    | '/faq'
+    | '/forgot-password'
+    | '/leaderboard'
+    | '/login'
+    | '/mock-tests'
+    | '/pricing'
+    | '/pyqs'
+    | '/question-bank'
+    | '/register'
+    | '/study-materials'
+    | '/course/$slug'
+    | '/dashboard/achievements'
+    | '/dashboard/bookmarks'
+    | '/dashboard/courses'
+    | '/dashboard/mock-tests'
+    | '/dashboard/performance'
+    | '/dashboard/profile'
+    | '/dashboard/question-bank'
+    | '/dashboard/settings'
+    | '/admin/'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AnnouncementsRoute: typeof AnnouncementsRoute
+  ContactRoute: typeof ContactRoute
+  CoursesRoute: typeof CoursesRoute
+  DailyPracticeRoute: typeof DailyPracticeRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  FaqRoute: typeof FaqRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  LoginRoute: typeof LoginRoute
+  MockTestsRoute: typeof MockTestsRoute
+  PricingRoute: typeof PricingRoute
+  PyqsRoute: typeof PyqsRoute
+  QuestionBankRoute: typeof QuestionBankRoute
+  RegisterRoute: typeof RegisterRoute
+  StudyMaterialsRoute: typeof StudyMaterialsRoute
+  CourseSlugRoute: typeof CourseSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +402,264 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/announcements': {
+      id: '/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/daily-practice': {
+      id: '/daily-practice'
+      path: '/daily-practice'
+      fullPath: '/daily-practice'
+      preLoaderRoute: typeof DailyPracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mock-tests': {
+      id: '/mock-tests'
+      path: '/mock-tests'
+      fullPath: '/mock-tests'
+      preLoaderRoute: typeof MockTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pyqs': {
+      id: '/pyqs'
+      path: '/pyqs'
+      fullPath: '/pyqs'
+      preLoaderRoute: typeof PyqsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question-bank': {
+      id: '/question-bank'
+      path: '/question-bank'
+      fullPath: '/question-bank'
+      preLoaderRoute: typeof QuestionBankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/study-materials': {
+      id: '/study-materials'
+      path: '/study-materials'
+      fullPath: '/study-materials'
+      preLoaderRoute: typeof StudyMaterialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/course/$slug': {
+      id: '/course/$slug'
+      path: '/course/$slug'
+      fullPath: '/course/$slug'
+      preLoaderRoute: typeof CourseSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/achievements': {
+      id: '/dashboard/achievements'
+      path: '/achievements'
+      fullPath: '/dashboard/achievements'
+      preLoaderRoute: typeof DashboardAchievementsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/bookmarks': {
+      id: '/dashboard/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/dashboard/bookmarks'
+      preLoaderRoute: typeof DashboardBookmarksRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/courses': {
+      id: '/dashboard/courses'
+      path: '/courses'
+      fullPath: '/dashboard/courses'
+      preLoaderRoute: typeof DashboardCoursesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/mock-tests': {
+      id: '/dashboard/mock-tests'
+      path: '/mock-tests'
+      fullPath: '/dashboard/mock-tests'
+      preLoaderRoute: typeof DashboardMockTestsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/performance': {
+      id: '/dashboard/performance'
+      path: '/performance'
+      fullPath: '/dashboard/performance'
+      preLoaderRoute: typeof DashboardPerformanceRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/question-bank': {
+      id: '/dashboard/question-bank'
+      path: '/question-bank'
+      fullPath: '/dashboard/question-bank'
+      preLoaderRoute: typeof DashboardQuestionBankRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface DashboardRouteChildren {
+  DashboardAchievementsRoute: typeof DashboardAchievementsRoute
+  DashboardBookmarksRoute: typeof DashboardBookmarksRoute
+  DashboardCoursesRoute: typeof DashboardCoursesRoute
+  DashboardMockTestsRoute: typeof DashboardMockTestsRoute
+  DashboardPerformanceRoute: typeof DashboardPerformanceRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardQuestionBankRoute: typeof DashboardQuestionBankRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAchievementsRoute: DashboardAchievementsRoute,
+  DashboardBookmarksRoute: DashboardBookmarksRoute,
+  DashboardCoursesRoute: DashboardCoursesRoute,
+  DashboardMockTestsRoute: DashboardMockTestsRoute,
+  DashboardPerformanceRoute: DashboardPerformanceRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardQuestionBankRoute: DashboardQuestionBankRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AnnouncementsRoute: AnnouncementsRoute,
+  ContactRoute: ContactRoute,
+  CoursesRoute: CoursesRoute,
+  DailyPracticeRoute: DailyPracticeRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  FaqRoute: FaqRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  LoginRoute: LoginRoute,
+  MockTestsRoute: MockTestsRoute,
+  PricingRoute: PricingRoute,
+  PyqsRoute: PyqsRoute,
+  QuestionBankRoute: QuestionBankRoute,
+  RegisterRoute: RegisterRoute,
+  StudyMaterialsRoute: StudyMaterialsRoute,
+  CourseSlugRoute: CourseSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
