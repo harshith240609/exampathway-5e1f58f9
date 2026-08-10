@@ -21,6 +21,7 @@ import { Route as MockTestsRouteImport } from './routes/mock-tests'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as QuestionBankRouteImport } from './routes/question-bank'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
@@ -87,6 +88,11 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
+  '/search': typeof SearchRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
+  '/search': typeof SearchRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
+  '/search': typeof SearchRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/question-bank'
     | '/register'
+    | '/search'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/question-bank'
     | '/register'
+    | '/search'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/question-bank'
     | '/register'
+    | '/search'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   QuestionBankRoute: typeof QuestionBankRoute
   RegisterRoute: typeof RegisterRoute
+  SearchRoute: typeof SearchRoute
   CourseSlugRoute: typeof CourseSlugRoute
 }
 
@@ -329,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -406,6 +426,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   QuestionBankRoute: QuestionBankRoute,
   RegisterRoute: RegisterRoute,
+  SearchRoute: SearchRoute,
   CourseSlugRoute: CourseSlugRoute,
 }
 export const routeTree = rootRouteImport
