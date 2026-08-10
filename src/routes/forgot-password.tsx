@@ -11,56 +11,53 @@ export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
       { title: "Reset Your ExamPathway Password" },
-      {
-        name: "description",
-        content:
-          "Enter your registered email address and we will send you a secure link to reset your ExamPathway password.",
-      },
-      { property: "og:title", content: "Reset password — ExamPathway" },
-      { property: "og:description", content: "Recover access to your student account." },
+      { name: "description", content: "Request a password reset link for your ExamPathway account." },
+      { property: "og:title", content: "Reset your ExamPathway password" },
+      { property: "og:description", content: "We'll email you a secure reset link." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ForgotPasswordPage,
 });
 
 function ForgotPasswordPage() {
-  const { forgotPassword } = useAuth();
+  const { resetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
     <AuthLayout
-      title="Forgot your password?"
-      description="We will email you a secure reset link."
+      title="Forgot password"
+      description="We'll email you a link to set a new password."
       footer={
-        <>
-          Remembered it?{" "}
-          <Link to="/login" className="font-semibold text-primary hover:underline">
-            Back to login
-          </Link>
-        </>
+        <Link to="/login" className="font-semibold text-primary hover:underline">
+          Back to sign in
+        </Link>
       }
     >
       {sent ? (
-        <div className="rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
-          If an account exists for <span className="font-medium text-foreground">{email}</span>,
-          a reset link is on its way. Check your inbox and spam folder.
-        </div>
+        <p className="rounded-xl border border-border bg-secondary/50 p-4 text-sm">
+          If an account exists for {email}, a reset link is on its way.
+        </p>
       ) : (
         <form
           className="space-y-5"
           onSubmit={async (event) => {
             event.preventDefault();
             setLoading(true);
-            const message = await forgotPassword(email);
+            const { error } = await resetPassword(email);
             setLoading(false);
+            if (error) {
+              toast.error(error);
+              return;
+            }
             setSent(true);
-            toast.success(message);
           }}
         >
           <div className="space-y-2">
-            <Label htmlFor="email">Registered email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -70,7 +67,7 @@ function ForgotPasswordPage() {
             />
           </div>
           <Button type="submit" size="lg" className="w-full" disabled={loading}>
-            {loading ? "Sending link..." : "Send reset link"}
+            {loading ? "Sending..." : "Send reset link"}
           </Button>
         </form>
       )}

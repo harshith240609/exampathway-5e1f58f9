@@ -1,92 +1,64 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
-import { FadeIn } from "@/components/common/motion";
-import { SectionHeading } from "@/components/common/section-heading";
-import { CourseCard } from "@/components/courses/course-card";
+import { useEffect, useState } from "react";
 import { PageHeader, SiteLayout } from "@/components/layout/site-layout";
-import { Input } from "@/components/ui/input";
-import { courses } from "@/data/mock";
+import { CourseCard } from "@/components/courses/course-card";
+import { EmptyState } from "@/components/common/empty-state";
+import { BookOpen } from "lucide-react";
+import { listCourses } from "@/lib/catalog.functions";
+import type { CourseSummary } from "@/lib/access";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
-      { title: "Courses — JEE, NEET, BITSAT, EAMCET & EAPCET | ExamPathway" },
+      { title: "Entrance Exam Courses — JEE, NEET, BITSAT, EAPCET | ExamPathway" },
       {
         name: "description",
         content:
-          "Explore ExamPathway courses for JEE Main, JEE Advanced, BITSAT, EAMCET, EAPCET and NEET with question banks, mock tests and analytics.",
+          "Browse ExamPathway courses for JEE Main, JEE Advanced, BITSAT, NEET and EAPCET with chapter-wise question banks and mock tests.",
       },
-      { property: "og:title", content: "ExamPathway Courses" },
-      {
-        property: "og:description",
-        content: "Dedicated preparation tracks for six major Indian entrance exams.",
-      },
+      { property: "og:title", content: "Entrance exam courses on ExamPathway" },
+      { property: "og:description", content: "JEE Main, JEE Advanced, BITSAT, NEET and EAPCET." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: CoursesPage,
 });
 
 function CoursesPage() {
-  const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState<CourseSummary[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const grouped = useMemo(() => {
-    const term = search.trim().toLowerCase();
-    const filtered = term
-      ? courses.filter(
-          (course) =>
-            course.name.toLowerCase().includes(term) ||
-            course.description.toLowerCase().includes(term),
-        )
-      : courses;
-    return {
-      Engineering: filtered.filter((course) => course.category === "Engineering"),
-      Medical: filtered.filter((course) => course.category === "Medical"),
-    };
-  }, [search]);
+  useEffect(() => {
+    void listCourses().then((data) => {
+      setCourses(data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <SiteLayout>
       <PageHeader
-        title="Choose your exam track"
-        description="Every course includes a chapter-wise question bank, previous year papers, mock test series, bookmarks and performance analytics."
-      >
-        <div className="relative w-full md:w-80">
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search courses"
-            className="h-11 pl-9"
+        title="Entrance exam courses"
+        description="Every course follows the same structure: subject, chapter, topic and question — so you always know what to study next."
+      />
+      <section className="section-container py-12">
+        {loading ? (
+          <p className="text-sm text-muted-foreground">Loading courses...</p>
+        ) : courses.length === 0 ? (
+          <EmptyState
+            icon={BookOpen}
+            title="No courses published yet"
+            description="Courses will appear here as soon as they are published."
           />
-        </div>
-      </PageHeader>
-
-      {(["Engineering", "Medical"] as const).map((category) => (
-        <section key={category} className="section-container py-14">
-          <SectionHeading
-            eyebrow={category}
-            title={`${category} entrance exams`}
-            description={
-              category === "Engineering"
-                ? "National and state level engineering entrance preparation with Physics, Chemistry and Mathematics."
-                : "NCERT-first medical entrance preparation covering Biology, Physics and Chemistry."
-            }
-          />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {grouped[category].map((course, index) => (
-              <FadeIn key={course.id} delay={index * 0.05}>
-                <CourseCard course={course} />
-              </FadeIn>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {courses.map((course) => (
+              <CourseCard key={course.id} course={course} />
             ))}
           </div>
-          {grouped[category].length === 0 ? (
-            <p className="mt-6 text-sm text-muted-foreground">
-              No {category.toLowerCase()} courses match your search.
-            </p>
-          ) : null}
-        </section>
-      ))}
+        )}
+      </section>
     </SiteLayout>
   );
 }

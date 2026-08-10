@@ -44,10 +44,12 @@ interface DashboardShellProps {
 }
 
 export function DashboardShell({ title, items, role, children }: DashboardShellProps) {
-  const { user, loading, logout } = useAuth();
+  const { user, profile, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+  const allowed = role === "admin" ? isAdmin : true;
 
   useEffect(() => {
     if (loading) return;
@@ -55,12 +57,10 @@ export function DashboardShell({ title, items, role, children }: DashboardShellP
       void navigate({ to: "/login" });
       return;
     }
-    if (user.role !== role) {
-      void navigate({ to: user.role === "admin" ? "/admin" : "/dashboard" });
-    }
-  }, [loading, user, role, navigate]);
+    if (!allowed) void navigate({ to: "/dashboard" });
+  }, [loading, user, allowed, navigate]);
 
-  if (loading || !user || user.role !== role) {
+  if (loading || !user || !allowed) {
     return (
       <div className="flex min-h-screen items-center justify-center text-sm text-muted-foreground">
         Checking your access...
@@ -68,9 +68,10 @@ export function DashboardShell({ title, items, role, children }: DashboardShellP
     );
   }
 
-  const initials = user.name
+  const displayName = profile?.full_name || user.email || "Student";
+  const initials = displayName
     .split(" ")
-    .map((part) => part[0])
+    .map((part: string) => part[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
@@ -106,11 +107,11 @@ export function DashboardShell({ title, items, role, children }: DashboardShellP
           </SidebarContent>
         </Sidebar>
 
-        <SidebarInset className="bg-transparent">
+        <SidebarInset className="min-w-0 bg-transparent">
           <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur">
             <SidebarTrigger />
-            <h1 className="text-sm font-semibold">{title}</h1>
-            <div className="ml-auto flex items-center gap-2">
+            <h1 className="truncate text-sm font-semibold">{title}</h1>
+            <div className="ml-auto flex shrink-0 items-center gap-2">
               <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
                 {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
               </Button>
@@ -120,7 +121,9 @@ export function DashboardShell({ title, items, role, children }: DashboardShellP
                     <Avatar className="size-7">
                       <AvatarFallback className="text-xs">{initials}</AvatarFallback>
                     </Avatar>
-                    <span className="hidden text-sm font-medium sm:inline">{user.name}</span>
+                    <span className="hidden max-w-32 truncate text-sm font-medium sm:inline">
+                      {displayName}
+                    </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52">
@@ -129,10 +132,15 @@ export function DashboardShell({ title, items, role, children }: DashboardShellP
                   <DropdownMenuItem asChild>
                     <Link to="/">Back to website</Link>
                   </DropdownMenuItem>
+                  {isAdmin ? (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin">Admin console</Link>
+                    </DropdownMenuItem>
+                  ) : null}
                   <DropdownMenuItem
                     onClick={async () => {
-                      await logout();
-                      void navigate({ to: "/login" });
+                      await signOut();
+                      void navigate({ to: "/login", replace: true });
                     }}
                   >
                     <LogOut className="size-4" /> Log out
