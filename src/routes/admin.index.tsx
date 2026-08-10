@@ -1,69 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen, Megaphone, Timer, Users } from "lucide-react";
-import { StatCard } from "@/components/common/stat-card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { announcements, mockTests, questions } from "@/data/mock";
+import { useEffect, useState } from "react";
+import { getAdminOverview } from "@/lib/study.functions";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
       { title: "Admin Console | ExamPathway" },
-      {
-        name: "description",
-        content: "Manage questions, mock tests, announcements and students on ExamPathway.",
-      },
-      { property: "og:title", content: "Admin Console | ExamPathway" },
-      { property: "og:description", content: "Platform overview for administrators." },
+      { name: "description", content: "Real content and user counts for the ExamPathway platform." },
+      { property: "og:title", content: "ExamPathway admin console" },
+      { property: "og:description", content: "Platform content and user counts." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: AdminOverview,
+  component: AdminOverview;
 });
 
 function AdminOverview() {
-  return (
-    <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard icon={Users} label="Active students" value="10,482" hint="+312 this week" />
-        <StatCard icon={BookOpen} label="Questions" value={`${questions.length}+`} hint="Across all courses" />
-        <StatCard icon={Timer} label="Mock tests" value={String(mockTests.length)} hint="Published" />
-        <StatCard icon={Megaphone} label="Announcements" value={String(announcements.length)} hint="Live" />
-      </div>
+  const [counts, setCounts] = useState<Record<string, number> | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-        <div className="border-b border-border px-6 py-4">
-          <h2 className="font-semibold">Recently added questions</h2>
+  useEffect(() => {
+    void getAdminOverview()
+      .then(setCounts)
+      .catch((err: unknown) =>
+        setError(err instanceof Error ? err.message : "Could not load overview."),
+      );
+  }, []);
+
+  if (error) return <p className="text-sm text-destructive">{error}</p>;
+  if (!counts) return <p className="text-sm text-muted-foreground">Loading overview...</p>;
+
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {Object.entries(counts).map(([table, count]) => (
+        <div key={table} className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            {table.replace(/_/g, " ")}
+          </p>
+          <p className="mt-2 text-3xl font-bold">{count}</p>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Question</TableHead>
-              <TableHead>Subject</TableHead>
-              <TableHead>Chapter</TableHead>
-              <TableHead className="text-right">Difficulty</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {questions.slice(0, 8).map((question) => (
-              <TableRow key={question.id}>
-                <TableCell className="max-w-[320px] truncate">{question.text}</TableCell>
-                <TableCell>{question.subject}</TableCell>
-                <TableCell>{question.chapter}</TableCell>
-                <TableCell className="text-right">
-                  <Badge variant="outline">{question.difficulty}</Badge>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      ))}
     </div>
   );
 }
