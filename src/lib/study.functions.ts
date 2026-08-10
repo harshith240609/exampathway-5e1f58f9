@@ -72,18 +72,6 @@ export const updateMyProfile = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-async function hasCourseAccess(
-  supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> },
-  userId: string,
-  courseId: string,
-) {
-  const { data } = await supabase.rpc("has_course_access", {
-    _user_id: userId,
-    _course_id: courseId,
-  });
-  return data === true;
-}
-
 /**
  * Question bank reads. The free tier limit is enforced here on the server:
  * a free student only ever receives the first N questions of each subject,
@@ -104,7 +92,9 @@ export const listQuestions = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!course) return { questions: [], total: 0, locked: false, hasAccess: false, freeLimit: 0 };
 
-    const hasAccess = await hasCourseAccess(supabase, userId, course.id);
+    const hasAccess = await supabase
+      .rpc("has_course_access", { _user_id: userId, _course_id: course.id })
+      .then((res) => res.data === true);
 
     let allowedIds: string[] | null = null;
     if (!hasAccess) {
@@ -174,7 +164,9 @@ export const listMockTests = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!course) return { tests: [], hasAccess: false };
 
-    const hasAccess = await hasCourseAccess(supabase, userId, course.id);
+    const hasAccess = await supabase
+      .rpc("has_course_access", { _user_id: userId, _course_id: course.id })
+      .then((res) => res.data === true);
     const [{ data: tests }, { data: attempts }] = await Promise.all([
       supabase
         .from("mock_tests")
@@ -208,7 +200,9 @@ export const startMockTestAttempt = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!test || !test.is_published) throw new Error("This mock test is not available.");
 
-    const hasAccess = await hasCourseAccess(supabase, userId, test.course_id);
+    const hasAccess = await supabase
+      .rpc("has_course_access", { _user_id: userId, _course_id: test.course_id })
+      .then((res) => res.data === true);
     if (!hasAccess && !test.is_free) {
       throw new Error("This mock test is part of a paid course. Please purchase access to continue.");
     }
