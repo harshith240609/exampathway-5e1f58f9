@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin/")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: AdminOverview;
+  component: AdminOverview,
 });
 
 function AdminOverview() {
