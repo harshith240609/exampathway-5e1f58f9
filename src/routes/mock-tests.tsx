@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Lock, Timer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { CreateAccountNotice, VerifyEmailNotice } from "@/components/common/access-notices";
 import { EmptyState } from "@/components/common/empty-state";
 import { PageHeader, SiteLayout } from "@/components/layout/site-layout";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +40,7 @@ export const Route = createFileRoute("/mock-tests")({
 });
 
 function MockTestsPage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, emailVerified, loading: authLoading } = useAuth();
   const [courses, setCourses] = useState<CourseSummary[]>([]);
   const [slug, setSlug] = useState("");
   const [result, setResult] = useState<MockTestResult | null>(null);
@@ -53,12 +54,12 @@ function MockTestsPage() {
   }, []);
 
   useEffect(() => {
-    if (!user || !slug) return;
+    if (!user || !emailVerified || !slug) return;
     setLoading(true);
     void listMockTests({ data: slug })
       .then(setResult)
       .finally(() => setLoading(false));
-  }, [user, slug]);
+  }, [user, emailVerified, slug]);
 
   return (
     <SiteLayout>
@@ -69,17 +70,9 @@ function MockTestsPage() {
 
       <section className="section-container space-y-6 py-12">
         {!authLoading && !user ? (
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">Sign in to attempt mock tests</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button asChild>
-                <Link to="/register">Create free account</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link to="/login">Sign in</Link>
-              </Button>
-            </div>
-          </div>
+          <CreateAccountNotice description="Verified free accounts get one free mock test in every course." />
+        ) : !authLoading && !emailVerified ? (
+          <VerifyEmailNotice />
         ) : (
           <>
             <Select value={slug} onValueChange={setSlug}>
@@ -94,6 +87,13 @@ function MockTestsPage() {
                 ))}
               </SelectContent>
             </Select>
+
+            {result && !result.hasAccess && result.freeMockUsed ? (
+              <p className="rounded-xl border border-border bg-secondary/50 p-4 text-sm">
+                You have used your free practice allocation for this course. Choose a paid plan to
+                unlock the complete question bank and all mock tests.
+              </p>
+            ) : null}
 
             {loading ? (
               <p className="text-sm text-muted-foreground">Loading mock tests...</p>
@@ -134,6 +134,8 @@ function MockTestsPage() {
                           try {
                             await startMockTestAttempt({ data: test.id });
                             toast.success("Attempt started.");
+                            const refreshed = await listMockTests({ data: slug });
+                            setResult(refreshed);
                           } catch (error) {
                             toast.error(
                               error instanceof Error ? error.message : "Could not start attempt.",

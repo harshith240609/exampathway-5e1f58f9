@@ -1,6 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { FREE_QUESTIONS_PER_SUBJECT } from "./access";
+import {
+  ensureFreeAccess,
+  markFreeMockUsed,
+  recordQuestionsUsed,
+  requireVerifiedEmail,
+} from "./free-access.server";
 
 export interface QuestionFilters {
   courseSlug: string;
@@ -98,22 +104,26 @@ export const listQuestions = createServerFn({ method: "POST" })
 
     let allowedIds: string[] | null = null;
     if (!hasAccess) {
+      await requireVerifiedEmail(userId);
+      const free = await ensureFreeAccess(userId, course.id, FREE_QUESTIONS_PER_SUBJECT);
+      const perSubject = free.free_question_limit;
       const { data: subjects } = await supabase
         .from("subjects")
         .select("id")
         .eq("course_id", course.id);
       allowedIds = [];
       for (const subject of subjects ?? []) {
-        const { data: free } = await supabase
+        const { data: freeRows } = await supabase
           .from("questions")
           .select("id")
           .eq("course_id", course.id)
           .eq("subject_id", subject.id)
           .order("created_at", { ascending: true })
           .order("id", { ascending: true })
-          .limit(FREE_QUESTIONS_PER_SUBJECT);
-        allowedIds.push(...(free ?? []).map((row) => row.id));
+          .limit(perSubject);
+        allowedIds.push(...(freeRows ?? []).map((row) => row.id));
       }
+      await recordQuestionsUsed(userId, course.id, allowedIds.length);
     }
 
     let query = supabase
@@ -162,11 +172,18 @@ export const listMockTests = createServerFn({ method: "POST" })
       .select("id, name, slug")
       .eq("slug", courseSlug)
       .maybeSingle();
-    if (!course) return { tests: [], hasAccess: false };
+    if (!course) return { tests: [], hasAccess: false, freeMockUsed: false };
 
     const hasAccess = await supabase
       .rpc("has_course_access", { _user_id: userId, _course_id: course.id })
       .then((res) => res.data === true);
+    let freeMockUsed = false;
+    if (!hasAccess) {
+      await requireVerifiedEmail(userId);
+      const free = await ensureFreeAccess(userId, course.id, FREE_QUESTIONS_PER_SUBJECT);
+      freeMockUsed = free.free_mock_used;
+    }
+
     const [{ data: tests }, { data: attempts }] = await Promise.all([
       supabase
         .from("mock_tests")
@@ -179,9 +196,10 @@ export const listMockTests = createServerFn({ method: "POST" })
 
     return {
       hasAccess,
+      freeMockUsed,
       tests: (tests ?? []).map((test) => ({
         ...test,
-        locked: !hasAccess && !test.is_free,
+        locked: !hasAccess && (!test.is_free || freeMockUsed),
         attempts: (attempts ?? []).filter((attempt) => attempt.mock_test_id === test.id),
       })),
     };
@@ -208,14 +226,14 @@ export const startMockTestAttempt = createServerFn({ method: "POST" })
     }
 
     if (!hasAccess) {
-      const { count } = await supabase
-        .from("mock_test_attempts")
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", userId)
-        .eq("mock_test_id", test.id);
-      if ((count ?? 0) >= 1) {
-        throw new Error("You have already used your free attempt for this mock test.");
+      await requireVerifiedEmail(userId);
+      const free = await ensureFreeAccess(userId, test.course_id, FREE_QUESTIONS_PER_SUBJECT);
+      if (free.free_mock_used) {
+        throw new Error(
+          "You have used your free practice allocation for this course. Choose a paid plan to unlock the complete question bank and all mock tests.",
+        );
       }
+      await markFreeMockUsed(userId, test.course_id, test.id);
     }
 
     const { data: attempt, error } = await supabase

@@ -15,6 +15,7 @@ interface AuthContextValue {
   session: Session | null;
   profile: Profile | null;
   isAdmin: boolean;
+  emailVerified: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (input: {
@@ -26,8 +27,10 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: string | null }>;
+  resendVerification: () => Promise<{ error: string | null }>;
   refreshProfile: () => Promise<void>;
 }
+
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -72,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       profile,
       isAdmin,
+      emailVerified: Boolean(session?.user?.email_confirmed_at),
       loading,
       signIn: async (email, password) => {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -103,6 +107,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       resetPassword: async (email) => {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
+        });
+        return { error: error?.message ?? null };
+      },
+      resendVerification: async () => {
+        const email = session?.user?.email;
+        if (!email) return { error: "No email address on this account." };
+        const { error } = await supabase.auth.resend({
+          type: "signup",
+          email,
+          options: { emailRedirectTo: `${window.location.origin}/dashboard` },
         });
         return { error: error?.message ?? null };
       },
