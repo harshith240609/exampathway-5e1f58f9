@@ -8,16 +8,14 @@ const columns = [
       { label: "Courses", to: "/courses" },
       { label: "Question Bank", to: "/question-bank" },
       { label: "Mock Tests", to: "/mock-tests" },
-      { label: "Daily Practice", to: "/daily-practice" },
     ],
   },
   {
-    title: "Resources",
+    title: "Account",
     links: [
-      { label: "PYQs", to: "/pyqs" },
-      { label: "Study Materials", to: "/study-materials" },
-      { label: "Announcements", to: "/announcements" },
-      { label: "Leaderboard", to: "/leaderboard" },
+      { label: "Create account", to: "/register" },
+      { label: "Sign in", to: "/login" },
+      { label: "Dashboard", to: "/dashboard" },
     ],
   },
   {
@@ -25,11 +23,11 @@ const columns = [
     links: [
       { label: "About", to: "/about" },
       { label: "Pricing", to: "/pricing" },
-      { label: "FAQ", to: "/faq" },
       { label: "Contact", to: "/contact" },
     ],
   },
 ] as const;
+
 
 export function SiteFooter() {
   return (
