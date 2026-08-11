@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Lock } from "lucide-react";
 import { useEffect, useState } from "react";
+import { CreateAccountNotice, VerifyEmailNotice } from "@/components/common/access-notices";
 import { EmptyState } from "@/components/common/empty-state";
 import { PageHeader, SiteLayout } from "@/components/layout/site-layout";
 import { Badge } from "@/components/ui/badge";
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/question-bank")({
 });
 
 function QuestionBankPage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, emailVerified, loading: authLoading } = useAuth();
   const [courses, setCourses] = useState<CourseSummary[]>([]);
   const [slug, setSlug] = useState("");
   const [subjectId, setSubjectId] = useState<string>("all");
@@ -53,14 +54,14 @@ function QuestionBankPage() {
   }, []);
 
   useEffect(() => {
-    if (!user || !slug) return;
+    if (!user || !emailVerified || !slug) return;
     setLoading(true);
     void listQuestions({
       data: { courseSlug: slug, subjectId: subjectId === "all" ? null : subjectId, pageSize: 10 },
     })
       .then(setResult)
       .finally(() => setLoading(false));
-  }, [user, slug, subjectId]);
+  }, [user, emailVerified, slug, subjectId]);
 
   const course = courses.find((item) => item.slug === slug);
 
@@ -73,20 +74,9 @@ function QuestionBankPage() {
 
       <section className="section-container space-y-6 py-12">
         {!authLoading && !user ? (
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">Sign in to start practising</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Create a free account to access 25 questions per subject in every course.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button asChild>
-                <Link to="/register">Create free account</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link to="/login">Sign in</Link>
-              </Button>
-            </div>
-          </div>
+          <CreateAccountNotice description="Verified free accounts get 25 questions per subject in every course." />
+        ) : !authLoading && !emailVerified ? (
+          <VerifyEmailNotice />
         ) : (
           <>
             <div className="grid gap-3 sm:grid-cols-2 lg:max-w-2xl">
@@ -121,6 +111,7 @@ function QuestionBankPage() {
               <p className="flex items-center gap-2 rounded-xl border border-border bg-secondary/50 p-4 text-sm">
                 <Lock className="size-4 shrink-0" />
                 Free plan: you can see the first {result.freeLimit} questions of each subject.
+                Choose a paid plan to unlock the complete question bank.
                 <Link to="/pricing" className="font-semibold text-primary hover:underline">
                   Upgrade
                 </Link>
