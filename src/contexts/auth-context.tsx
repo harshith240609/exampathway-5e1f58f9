@@ -75,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       profile,
       isAdmin,
+      emailVerified: Boolean(session?.user?.email_confirmed_at),
       loading,
       signIn: async (email, password) => {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -106,6 +107,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       resetPassword: async (email) => {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
+        });
+        return { error: error?.message ?? null };
+      },
+      resendVerification: async () => {
+        const email = session?.user?.email;
+        if (!email) return { error: "No email address on this account." };
+        const { error } = await supabase.auth.resend({
+          type: "signup",
+          email,
+          options: { emailRedirectTo: `${window.location.origin}/dashboard` },
         });
         return { error: error?.message ?? null };
       },
