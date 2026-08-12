@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { OPTION_LETTERS as LETTERS, assertAdmin } from "./admin-helpers.server";
 
 export interface AdminOption {
   label: string;
@@ -20,16 +21,6 @@ export interface AdminQuestionInput {
   is_pyq: boolean;
   explanation?: string | null;
   options: AdminOption[];
-}
-
-const LETTERS = ["A", "B", "C", "D", "E", "F"];
-
-async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data: isAdmin } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (!isAdmin) throw new Error("Forbidden");
 }
 
 /** Courses -> subjects -> chapters -> topics for the admin pickers. */
