@@ -49,6 +49,8 @@ function AdminOverview() {
           <p className="mt-2 text-3xl font-bold">{count}</p>
         </div>
       ))}
+      </div>
     </div>
+
   );
 }
