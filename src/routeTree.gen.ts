@@ -23,6 +23,7 @@ import { Route as QuestionBankRouteImport } from './routes/question-bank'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminQuestionsRouteImport } from './routes/admin.questions'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardCoursesRouteImport } from './routes/dashboard.courses'
@@ -98,6 +99,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminQuestionsRoute = AdminQuestionsRouteImport.update({
+  id: '/questions',
+  path: '/questions',
+  getParentRoute: () => AdminRoute,
+} as any)
 const CourseSlugRoute = CourseSlugRouteImport.update({
   id: '/course/$slug',
   path: '/course/$slug',
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/admin/questions': typeof AdminQuestionsRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/admin/questions': typeof AdminQuestionsRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/question-bank': typeof QuestionBankRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/admin/questions': typeof AdminQuestionsRoute
   '/course/$slug': typeof CourseSlugRoute
   '/dashboard/courses': typeof DashboardCoursesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
     | '/question-bank'
     | '/register'
     | '/search'
+    | '/admin/questions'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -212,6 +222,7 @@ export interface FileRouteTypes {
     | '/question-bank'
     | '/register'
     | '/search'
+    | '/admin/questions'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -232,6 +243,7 @@ export interface FileRouteTypes {
     | '/question-bank'
     | '/register'
     | '/search'
+    | '/admin/questions'
     | '/course/$slug'
     | '/dashboard/courses'
     | '/dashboard/profile'
@@ -356,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/questions': {
+      id: '/admin/questions'
+      path: '/questions'
+      fullPath: '/admin/questions'
+      preLoaderRoute: typeof AdminQuestionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/course/$slug': {
       id: '/course/$slug'
       path: '/course/$slug'
@@ -388,10 +407,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminQuestionsRoute: typeof AdminQuestionsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminQuestionsRoute: AdminQuestionsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
