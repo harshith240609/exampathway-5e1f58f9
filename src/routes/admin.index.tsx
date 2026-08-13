@@ -32,8 +32,16 @@ function AdminOverview() {
   if (!counts) return <p className="text-sm text-muted-foreground">Loading overview...</p>;
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="space-y-4">
+      <Link
+        to="/admin/questions"
+        className="inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+      >
+        Manage question database
+      </Link>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {Object.entries(counts).map(([table, count]) => (
+
         <div key={table} className="rounded-2xl border border-border bg-card p-5">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
             {table.replace(/_/g, " ")}
