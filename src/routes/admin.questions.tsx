@@ -692,9 +692,11 @@ function ImportDialog({
       }));
     }
     const rows = parseCsv(trimmed);
-    const [header, ...body] = rows;
+    const header = rows[0] ?? [];
+    const body = rows.slice(1);
     const index = (name: string) =>
       header.findIndex((cell) => cell.trim().toLowerCase() === name);
+
     const qi = index("question");
     return body.map((row) => {
       const correct = (row[index("correct")] ?? "").trim().toUpperCase();

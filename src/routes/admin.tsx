@@ -1,8 +1,11 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard } from "lucide-react";
+import { Database, LayoutDashboard } from "lucide-react";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 
-const items = [{ label: "Overview", to: "/admin", icon: LayoutDashboard }];
+const items = [
+  { label: "Overview", to: "/admin", icon: LayoutDashboard },
+  { label: "Questions", to: "/admin/questions", icon: Database },
+];
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
