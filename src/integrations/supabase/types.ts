@@ -210,6 +210,60 @@ export type Database = {
           },
         ]
       }
+      mock_test_sections: {
+        Row: {
+          created_at: string
+          id: string
+          marks_per_question: number
+          mock_test_id: string
+          name: string
+          negative_marks: number
+          question_count: number
+          question_type: string
+          sort_order: number
+          subject_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          marks_per_question?: number
+          mock_test_id: string
+          name: string
+          negative_marks?: number
+          question_count?: number
+          question_type?: string
+          sort_order?: number
+          subject_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          marks_per_question?: number
+          mock_test_id?: string
+          name?: string
+          negative_marks?: number
+          question_count?: number
+          question_type?: string
+          sort_order?: number
+          subject_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_test_sections_mock_test_id_fkey"
+            columns: ["mock_test_id"]
+            isOneToOne: false
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mock_test_sections_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mock_tests: {
         Row: {
           course_id: string
@@ -219,6 +273,8 @@ export type Database = {
           id: string
           is_free: boolean
           is_published: boolean
+          paper: number
+          pattern: string
           sort_order: number
           title: string
           total_marks: number
@@ -231,6 +287,8 @@ export type Database = {
           id?: string
           is_free?: boolean
           is_published?: boolean
+          paper?: number
+          pattern?: string
           sort_order?: number
           title: string
           total_marks?: number
@@ -243,6 +301,8 @@ export type Database = {
           id?: string
           is_free?: boolean
           is_published?: boolean
+          paper?: number
+          pattern?: string
           sort_order?: number
           title?: string
           total_marks?: number
@@ -436,6 +496,77 @@ export type Database = {
           },
         ]
       }
+      question_sets: {
+        Row: {
+          chapter_id: string | null
+          course_id: string
+          created_at: string
+          id: string
+          kind: string
+          name: string
+          sort_order: number
+          subject_id: string
+          target_count: number
+          topic_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          chapter_id?: string | null
+          course_id: string
+          created_at?: string
+          id?: string
+          kind?: string
+          name: string
+          sort_order?: number
+          subject_id: string
+          target_count?: number
+          topic_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          chapter_id?: string | null
+          course_id?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          name?: string
+          sort_order?: number
+          subject_id?: string
+          target_count?: number
+          topic_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_sets_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_sets_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_sets_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_sets_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       questions: {
         Row: {
           chapter_id: string | null
@@ -445,7 +576,12 @@ export type Database = {
           exam_year: number | null
           explanation: string | null
           id: string
+          is_active: boolean
           is_pyq: boolean
+          marks: number
+          negative_marks: number
+          question_number: number | null
+          question_set_id: string | null
           question_text: string
           question_type: string
           subject_id: string
@@ -459,7 +595,12 @@ export type Database = {
           exam_year?: number | null
           explanation?: string | null
           id?: string
+          is_active?: boolean
           is_pyq?: boolean
+          marks?: number
+          negative_marks?: number
+          question_number?: number | null
+          question_set_id?: string | null
           question_text: string
           question_type?: string
           subject_id: string
@@ -473,7 +614,12 @@ export type Database = {
           exam_year?: number | null
           explanation?: string | null
           id?: string
+          is_active?: boolean
           is_pyq?: boolean
+          marks?: number
+          negative_marks?: number
+          question_number?: number | null
+          question_set_id?: string | null
           question_text?: string
           question_type?: string
           subject_id?: string
@@ -492,6 +638,13 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "questions_question_set_id_fkey"
+            columns: ["question_set_id"]
+            isOneToOne: false
+            referencedRelation: "question_sets"
             referencedColumns: ["id"]
           },
           {
