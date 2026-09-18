@@ -385,13 +385,6 @@ export const getAdminContentStats = createServerFn({ method: "GET" })
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data, error } = await supabaseAdmin.rpc("exec_admin_stats" as never).then(
-      (res) => res,
-      () => ({ data: null, error: null }) as any,
-    );
-    if (data && !error) return data as unknown as AdminContentStats;
-
-    // Fallback: compute with plain queries.
     const [{ data: courses }, { data: subjects }, { data: sets }] = await Promise.all([
       supabaseAdmin.from("courses").select("id, name").order("sort_order"),
       supabaseAdmin.from("subjects").select("id, name, course_id").limit(500),
