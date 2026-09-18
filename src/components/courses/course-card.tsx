@@ -14,11 +14,20 @@ export function CourseCard({
   return (
     <article className="card-hover flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
-        <h3 className="min-w-0 text-lg font-semibold sm:text-xl">{course.name}</h3>
-        <Badge variant="secondary" className="shrink-0">
-          {course.category}
-        </Badge>
-      </div>
+  <div className="flex min-w-0 items-center gap-2">
+    <h3 className="text-lg font-semibold sm:text-xl">{course.name}</h3>
+
+    {comingSoon && (
+      <Badge variant="outline" className="shrink-0">
+        Coming Soon
+      </Badge>
+    )}
+  </div>
+
+  <Badge variant="secondary" className="shrink-0">
+    {course.category}
+  </Badge>
+</div>
       <p className="text-sm leading-relaxed text-muted-foreground">{course.description}</p>
 
       <div className="flex flex-wrap gap-2">
@@ -53,11 +62,17 @@ export function CourseCard({
         </div>
       </dl>
 
-      <Button asChild variant="outline" className="w-full">
-        <Link to="/course/$slug" params={{ slug: course.slug }}>
-          View course
-        </Link>
-      </Button>
+      {comingSoon ? (
+  <Button variant="outline" className="w-full" disabled>
+    Coming Soon
+  </Button>
+) : (
+  <Button asChild variant="outline" className="w-full">
+    <Link to="/course/$slug" params={{ slug: course.slug }}>
+      View course
+    </Link>
+  </Button>
+)}
     </article>
   );
 }
