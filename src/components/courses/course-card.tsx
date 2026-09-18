@@ -4,7 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { CourseSummary } from "@/lib/access";
 
-export function CourseCard({ course }: { course: CourseSummary }) {
+export function CourseCard({
+  course,
+  comingSoon = false,
+}: {
+  course: CourseSummary;
+  comingSoon?: boolean;
+}) {
   return (
     <article className="card-hover flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
